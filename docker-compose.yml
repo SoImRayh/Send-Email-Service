@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  email-sender:
+    container_name: email-sender
+    build: .
+    image: imrayh/email-sender
+    depends_on:
+      - postgres
+    ports:
+      - '8081:8080'
+
+  postgres:
+    container_name: email-db
+    image: postgres
+    volumes:
+      - email:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USER: email
+      POSTGRES_DB: postgre
+      POSTGRES_PASSWORD: email
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+
+volumes:
+  email:
+    external: true

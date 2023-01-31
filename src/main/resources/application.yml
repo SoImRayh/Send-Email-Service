@@ -1,0 +1,22 @@
+
+server:
+  port: 8081
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: doula
+    username: doula
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: raykah.silva@Gmail.com
+    password: qmuzzgezvjoiyavh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

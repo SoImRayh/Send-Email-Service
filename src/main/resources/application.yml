@@ -7,13 +7,13 @@ spring:
       ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    password: doula
-    username: doula
+    password: {db-password}
+    username: {db-password}
   mail:
     host: smtp.gmail.com
     port: 587
-    username: raykah.silva@Gmail.com
-    password: qmuzzgezvjoiyavh
+    username: {email}
+    password: {senha}
     properties:
       mail:
         smtp:

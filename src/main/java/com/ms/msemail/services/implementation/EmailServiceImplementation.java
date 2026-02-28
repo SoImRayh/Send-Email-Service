@@ -3,7 +3,6 @@ package com.ms.msemail.services.implementation;
 import com.ms.msemail.dto.EmailDto;
 import com.ms.msemail.enums.StatusEmail;
 import com.ms.msemail.model.Email;
-import com.ms.msemail.repositories.EmailRepository;
 import com.ms.msemail.services.EmailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatusCode;
@@ -18,11 +17,9 @@ import java.time.LocalDateTime;
 @Service
 public class EmailServiceImplementation implements EmailService {
 
-    private final EmailRepository repository;
     private final JavaMailSender emailSender;
 
-    public EmailServiceImplementation(EmailRepository repository, JavaMailSender emailSender) {
-        this.repository = repository;
+    public EmailServiceImplementation( JavaMailSender emailSender) {
         this.emailSender = emailSender;
     }
 
@@ -46,7 +43,6 @@ public class EmailServiceImplementation implements EmailService {
             System.out.println("\n"+e.getMessage());
             email.setStatusEmail(StatusEmail.ERROR);
         }finally {
-            repository.save(email);
         }
 
         return new ResponseEntity<>(email, HttpStatusCode.valueOf(200));

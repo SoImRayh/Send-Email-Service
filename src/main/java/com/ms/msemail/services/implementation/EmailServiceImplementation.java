@@ -4,6 +4,7 @@ import com.ms.msemail.dto.EmailDto;
 import com.ms.msemail.enums.StatusEmail;
 import com.ms.msemail.model.Email;
 import com.ms.msemail.services.EmailService;
+import dev.rayh.contracts.EmailEvent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +43,30 @@ public class EmailServiceImplementation implements EmailService {
         }catch (MailException e){
             System.out.println("\n"+e.getMessage());
             email.setStatusEmail(StatusEmail.ERROR);
-        }finally {
         }
 
         return new ResponseEntity<>(email, HttpStatusCode.valueOf(200));
+    }
+
+    @Override
+    public void sendEmail(EmailEvent event) {
+        Email email = new Email();
+        BeanUtils.copyProperties(event, email);
+
+        email.setSendDateemail(LocalDateTime.now());
+
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(email.getEmailFrom());
+            message.setTo(email.getEmailTo());
+            message.setSubject(email.getSubject());
+            message.setText(email.getText());
+            emailSender.send(message);
+
+            email.setStatusEmail(StatusEmail.SENT);
+        }catch (MailException e){
+            System.out.println("\n"+e.getMessage());
+            email.setStatusEmail(StatusEmail.ERROR);
+        }
     }
 }

@@ -20,8 +20,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: {email}
-    password: {senha}
+    username: raykah.silva@gmail.com
+    password: nsif pgdv tgps nesp
     properties:
       mail:
         smtp:
